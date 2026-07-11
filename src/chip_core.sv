@@ -6,7 +6,9 @@
 module chip_core #(
     parameter NUM_INPUT_PADS,
     parameter NUM_BIDIR_PADS,
-    parameter NUM_ANALOG_PADS
+    parameter NUM_ANALOG_PADS,
+	localparam PORT_CNT = 3,
+	localparam PHY_W    = 2 
     )(
     `ifdef USE_POWER_PINS
     inout  wire VDD,
@@ -32,70 +34,76 @@ module chip_core #(
     inout  wire [NUM_ANALOG_PADS-1:0] analog  // Analog
 );
 
-    // See here for usage: https://gf180mcu-pdk.readthedocs.io/en/latest/IPs/IO/gf180mcu_fd_io/digital.html
-    
-    // Disable pull-up and pull-down for input
-    assign input_pu = '0;
-    assign input_pd = '0;
+/* Coffeepot 
+100Mbps Ethernet switch ASIC */ 
+// RX pins
+wire [PORT_CNT-1:0]       phy_rx_v;
+wire [PORT_CNT-1:0]       phy_rx_err;
+wire [PORT_CNT*PHY_W-1:0] phy_rx;	
 
-    // Set the bidir as output
-    assign bidir_oe = '1;
-    assign bidir_cs = '0;
-    assign bidir_sl = '0;
-    assign bidir_ie = ~bidir_oe;
-    assign bidir_pu = '0;
-    assign bidir_pd = '0;
-    
-    logic _unused;
-    assign _unused = &bidir_in;
+// TX pins
+wire [PORT_CNT-1:0]       phy_tx_v;
+wire [PORT_CNT*PHY_W-1:0] phy_tx;
 
-    logic [NUM_BIDIR_PADS-1:0] count;
+// pin mapping
+localparam RMII_IN_W  = 4; 
+localparam RMII_OUT_W = 3; 
 
-    always_ff @(posedge clk) begin
-        if (!rst_n) begin
-            count <= '0;
-        end else begin
-            if (&input_in) begin
-                count <= count + 1;
-            end
-        end
-    end
+wire [PORT_CNT*RMII_OUT_W-1:0] bidir_input_unusued; 
 
-    logic [7:0] sram_0_out;
+genvar i; 
+generate 
+	for(i = 0; i < PORT_CNT; i = i+1): g_coffeepot_pin_conn
+		// in
+		assign phy_rx[(i+1)*PHY_W-1-:PHY_W] = input_in[i*RMII_IN_W+PHY_W-1-:PHY_W];
+		assign phy_rx_v[i]   = input_in[i*RMII_IN_W+2];
+		assign phy_rx_err[i] = input_in[i*RMII_IN_W+3];
 
-    `gf180mcu_xxx_ip_sram__sram512x8m8wm1 sram_0 (
-        `ifdef USE_POWER_PINS
-        .VDD  (VDD),
-        .VSS  (VSS),
-        `endif
+		assign input_pu[(i+1)*RMII_IN_W-1-:RMII_IN_W] = {RMII_IN_W{1'b0}};
+		assign input_pd[(i+1)*RMII_IN_W-1-:RMII_IN_W] = {RMII_IN_W{1'b1}};
+	
+		// out 
+		assign bidir_out[i*RMII_OUT_W+PHY_W-1-:PHY_W] = phy_tx[(i+1)*PHY_W-1-:PHY_W];
+		assign didir_out[i*RMII_OUT_W+2]              = phy_tx_v[i];
 
-        .CLK  (clk),
-        .CEN  (1'b1),
-        .GWEN (1'b0),
-        .WEN  (8'b0),
-        .A    ('0),
-        .D    ('0),
-        .Q    (sram_0_out)
-    );
+		assign bidir_oe[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = {RMII_OUT_W{1'b1}};
+		assign bidir_cs[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = {RMII_OUT_W{1'b0}};
+		assign bidir_sl[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = {RMII_OUT_W{1'b0}};
+		assign bidir_ie[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = {RMII_OUT_W{1'b0}};
+		assign bidir_pu[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = {RMII_OUT_W{1'b0}};
+		assign bidir_pd[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = {RMII_OUT_W{1'b1}};
 
-    logic [7:0] sram_1_out;
+		assign bidir_input_unusued[(i+1)*RMII_OUT_W-1-:RMII_OUT_W] = bidir_in[(i+1)*RMII_OUT_W-1-:RMII_OUT_W];
+	end
+endgenerate 
 
-    `gf180mcu_xxx_ip_sram__sram512x8m8wm1 sram_1 (
-        `ifdef USE_POWER_PINS
-        .VDD  (VDD),
-        .VSS  (VSS),
-        `endif
+// tie unused pins, TODO cleanup
+localparam OUT_PADS_CNT = PORT_CNT*RMII_OUT_W;
+localparam UNUSED_BIDIR_PADS_CNT = NUM_BIDIR_PADS - OUT_PADS_CNT; 
 
-        .CLK  (clk),
-        .CEN  (1'b1),
-        .GWEN (1'b0),
-        .WEN  (8'b0),
-        .A    ('0),
-        .D    ('0),
-        .Q    (sram_1_out)
-    );
+assign bidir_out[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT] = {UNUSED_BIDIR_PADS_CNT{1'b0}};
+assign bidir_oe[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_CNT{1'b1}};
+assign bidir_cs[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_CNT{1'b0}};
+assign bidir_sl[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_CNT{1'b0}};
+assign bidir_ie[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_CNT{1'b0}};
+assign bidir_pu[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_CNT{1'b0}};
+assign bidir_pd[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_CNT{1'b0}}; // floating pad
 
-    assign bidir_out = count ^ {24'd0, sram_0_out, sram_1_out};
+coffeepot #(.PORT_CNT(3), .PHY_W(2), .HAS_TX_PHASE(0)) m_coffeeport(
+	.clk(clk), 
+	.rst_n(rst_n), 
+
+	.tx_phase_i(1'bX),
+	
+	.phy_rx_v_i(phy_rx),
+	.phy_rx_err_i(phy_rx_v),
+	.phy_rx_i(phy_rx_err),
+
+	.phy_tx_v_o(phy_tx_v),
+	.phy_tx_o(phy_tx)
+); 
+
+// TODO coldbrew
 
 endmodule
 
