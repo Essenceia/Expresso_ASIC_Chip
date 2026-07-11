@@ -145,10 +145,9 @@ WAIVER_FILE := waiver.vlt
 
 LINT_FLAGS := -Wall -Wpedantic -Ilib
 
-entry_deps := $(wildcard $(SRC_DIR)/*.sv) $(wildcard $(SRC_DIR)/*.svh) $(wildcard $(COFFEEPOT_SRC_DIR)/*.v) 
-$(info SRCS $(SRC_DIR))
-$(info PWD $(shell pwd))
-$(info DEPS $(entry_deps))
+entry_deps := $(SRC_DIR)/slot_defines.svh $(SRC_DIR)/chip_top.sv $(SRC_DIR)/chip_core.sv
+entry_deps += $(wildcard $(COFFEEPOT_SRC_DIR)/*.v) 
+
 lint: $(entry_deps)
-	verilator $(CONF)/$(WAIVER_FILE) --lint-only $(LINT_FLAGS) --no-timing $^ --top $(PROJET_NAME)
+	verilator $(CONF)/$(WAIVER_FILE) -y $(SRC_DIR) --lint-only $(LINT_FLAGS) --no-timing $^ --top $(PROJET_NAME)
 .PHONY: lint

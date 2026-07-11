@@ -53,7 +53,7 @@ wire [PORT_CNT*RMII_OUT_W-1:0] bidir_input_unusued;
 
 genvar i; 
 generate 
-	for(i = 0; i < PORT_CNT; i = i+1): g_coffeepot_pin_conn
+	for(i = 0; i < PORT_CNT; i = i+1)begin: g_coffeepot_pin_conn
 		// in
 		assign phy_rx[(i+1)*PHY_W-1-:PHY_W] = input_in[i*RMII_IN_W+PHY_W-1-:PHY_W];
 		assign phy_rx_v[i]   = input_in[i*RMII_IN_W+2];
