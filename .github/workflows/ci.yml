@@ -40,7 +40,6 @@ jobs:
           else
             echo "matrix={\"slot\":['default'],\"domain\":['default'],\"sram\":['default'],\"pad\":['default'],\"scl\":['default']}" >> $GITHUB_OUTPUT
           fi
-          git submodule update --init --recursive
     outputs:
       matrix: ${{ steps.export-matrix.outputs.matrix }}
   chip:
@@ -80,6 +79,9 @@ jobs:
         run: |
           sudo du -hs /nix/store/* | sort -h | tail -n 10
           sudo tree /nix/store/*-librelane || true
+      - name: Pull Submodules 
+        run: |
+          git submodule update --init --recursive
       - name: Clone the PDK
         run: |
           nix develop --command make clone-pdk
