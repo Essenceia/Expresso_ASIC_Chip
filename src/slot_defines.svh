@@ -56,8 +56,8 @@
 `define NUM_VSS_PADS 1
 
 // Signal pads
-`define NUM_INPUT_PADS 12
-`define NUM_BIDIR_PADS 33
+`define NUM_INPUT_PADS 16
+`define NUM_BIDIR_PADS 29
 `define NUM_ANALOG_PADS 1
 
 `endif
