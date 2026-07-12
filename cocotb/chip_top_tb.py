@@ -22,7 +22,11 @@ slot = os.getenv("SLOT", "1x1")
 WAVES = os.getenv("WAVES", "1").lower() in ("true", "yes", "1")
 
 hdl_toplevel = "chip_top_tb"
+
 coldbrew_phy = "3"
+PHY_NUM = 4
+CLK_UNIT="ns"
+CLK_PERIOD=20
 
 import time
 import sys
@@ -39,10 +43,9 @@ async def enable_power(dut):
     dut.VDD.value = 1
     dut.VSS.value = 0
 
-async def start_clock(clock, freq=50):
-    """Start the clock @ freq MHz"""
-    c = Clock(clock, 1 / freq * 1000, "ns")
-    cocotb.start_soon(c.start())
+async def start_clock(dut):
+    clock = Clock(dut.clk, CLK_PERIOD, CLK_UNIT)
+    return cocotb.start_soon(clock.start()) 
 
 def set_random_seed():
     if "SEED" in os.environ:
@@ -52,25 +55,25 @@ def set_random_seed():
     cocotb.log.info(f"random seed {seed}")
     random.seed(seed)
 
-async def reset(reset, active_low=True, time_ns=1000):
-    """Reset dut"""
-    cocotb.log.info("Reset asserted...")
-
-    reset.value = not active_low
-    await Timer(time_ns, "ns")
-    reset.value = active_low
-
-    cocotb.log.info("Reset deasserted.")
-
-
 async def start_up(dut):
     """Startup sequence"""
     await set_defaults(dut)
     cocotb.log.info(f"GATES {GATES}")
     if GATES:
         await enable_power(dut)
-    await start_clock(dut.clk)
-    await reset(dut.rst_n)
+    
+    dut.rst_n.value = 0
+    await start_clock(dut)
+    await ClockCycles(dut.clk, 2)
+
+    # set default phy rx
+    for idx in range(0, PHY_NUM):
+        dut[f"phy_rx{idx}_v"].value = "0"
+        dut[f"phy_rx{idx}"].value = "X"*2
+        dut[f"phy_rx{idx}_err"].value = "X"
+    await ClockCycles(dut.clk, 30)
+    dut.rst_n.value = 1
+    await ClockCycles(dut.clk, 20)
     set_random_seed()
 
 @cocotb.test()
