@@ -79,6 +79,9 @@ jobs:
         run: |
           sudo du -hs /nix/store/* | sort -h | tail -n 10
           sudo tree /nix/store/*-librelane || true
+      - name: Configure submodules to HTTP
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
       - name: Pull Submodules 
         run: |
           git submodule update --init --recursive
