@@ -5,15 +5,16 @@
 
 module chip_core #(
 `ifdef VERILATOR_LINT
-    parameter NUM_INPUT_PADS = 12,
-    parameter NUM_BIDIR_PADS = 33,
+    parameter NUM_INPUT_PADS = 16,
+    parameter NUM_BIDIR_PADS = 29,
     parameter NUM_ANALOG_PADS = 1,
 `else
     parameter NUM_INPUT_PADS,
     parameter NUM_BIDIR_PADS,
     parameter NUM_ANALOG_PADS,
 `endif
-	localparam PORT_CNT = 3,
+	localparam PORT_CNT = 4, // total port cnd
+	localparam SWITCH_PORT_CNT = 3,
 	localparam PHY_W    = 2 
     )(
     `ifdef USE_POWER_PINS
@@ -97,21 +98,34 @@ assign bidir_pd[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT]  = {UNUSED_BIDIR_PADS_C
 
 assign bidir_input_unused[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT] = bidir_in[NUM_BIDIR_PADS-1-:UNUSED_BIDIR_PADS_CNT];
 
-coffeepot #(.PORT_CNT(3), .PHY_W(2), .HAS_TX_PHASE(0)) m_coffeeport(
+coffeepot #(.PORT_CNT(SWITCH_PORT_CNT), .PHY_W(PHY_W), .HAS_TX_PHASE(0)) m_coffeeport(
 	.clk(clk), 
 	.rst_n(rst_n), 
 
 	.tx_phase_i(1'bX),
 	
-	.phy_rx_v_i(phy_rx_v),
-	.phy_rx_err_i(phy_rx_err),
-	.phy_rx_i(phy_rx),
+	.phy_rx_v_i(phy_rx_v[SWITCH_PORT_CNT-1:0]),
+	.phy_rx_err_i(phy_rx_err[SWITCH_PORT_CNT-1:0]),
+	.phy_rx_i(phy_rx[PHY_W*SWITCH_PORT_CNT-1:0]),
 
-	.phy_tx_v_o(phy_tx_v),
-	.phy_tx_o(phy_tx)
+	.phy_tx_v_o(phy_tx_v[SWITCH_PORT_CNT-1:0]),
+	.phy_tx_o(phy_tx[PHY_W*SWITCH_PORT_CNT-1:0])
 ); 
 
 // TODO coldbrew
+coldbrew #(.PHY_W(2), .HAS_TX_PHASE(0), .DEFAULT_MAC(48'h0090CF00CAFE)) m_coldbrew(
+	.clk(clk), 
+	.rst_n(rst_n), 
+
+	.tx_phase_i(1'bX),
+	
+	.phy_rx_v_i(phy_rx_v[PORT_CNT-1]),
+	.phy_rx_err_i(phy_rx_err[PORT_CNT-1]),
+	.phy_rx_i(phy_rx[PHY_W*PORT_CNT-1-:PHY_W]),
+
+	.phy_tx_v_o(phy_tx_v[PORT_CNT-1]),
+	.phy_tx_o(phy_tx[PHY_W*PORT_CNT-1-:PHY_W])
+);
 
 endmodule
 
