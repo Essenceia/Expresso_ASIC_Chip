@@ -198,7 +198,8 @@ def chip_top_runner():
         sources.append(coldbrew_path / "mac_rx.v")
         sources.append(coldbrew_path / "mac_tx.v")
   
-        #cocotb sim specific defs to reduce counter size
+        # cocotb sim specific defs to reduce counter sizes and increase tb coverage 
+        # applies to both coldbrew and coffeepot
         defines["COCOTB"] = True
 
     sources += [
