@@ -1,9 +1,9 @@
 # Expresso ASIC 
 
 Open source Ethernet focused ASIC featuring a 
-100Mbps capable cut-trough, unmanaged, Ethernet switch. 
-This chip is targetting was designed for the second run of [wafer.space](https://wafer.space/) 
-targetting the open source Global Foundaries 180 nm process (`gf180mcu`). 
+100Mbps capable cut-through, unmanaged, Ethernet switch. 
+This chip is designed for the second run of [wafer.space](https://wafer.space/), 
+targetting the Global Foundaries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
 
 ![floorplan](precheck/chip_top.png) 
 
