@@ -55,6 +55,7 @@ VERILOG_FILES:
 
 # Synth directived for timing debug 
 SYNTH_AUTONAME: true 
+LINT_VLT: dir::../conf/waiver.vlt
 
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True
