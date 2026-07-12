@@ -13,9 +13,12 @@ module chip_core #(
     parameter NUM_BIDIR_PADS,
     parameter NUM_ANALOG_PADS,
 `endif
-	localparam PORT_CNT = 4, // total port cnd
+	localparam PORT_CNT        = 4, // total port cnd
 	localparam SWITCH_PORT_CNT = 3,
-	localparam PHY_W    = 2 
+	localparam PHY_W           = 2,
+
+	localparam MAC_W = 48,
+	parameter [MAC_W-1:0] COLDBREW_MAC = 48'h0090CF00CAFE 
     )(
     `ifdef USE_POWER_PINS
     inout  wire VDD,
@@ -112,8 +115,7 @@ coffeepot #(.PORT_CNT(SWITCH_PORT_CNT), .PHY_W(PHY_W), .HAS_TX_PHASE(0)) m_coffe
 	.phy_tx_o(phy_tx[PHY_W*SWITCH_PORT_CNT-1:0])
 ); 
 
-// TODO coldbrew
-coldbrew #(.PHY_W(2), .HAS_TX_PHASE(0), .DEFAULT_MAC(48'h0090CF00CAFE)) m_coldbrew(
+coldbrew #(.PHY_W(2), .HAS_TX_PHASE(0), .DEFAULT_MAC(COLDBREW_MAC)) m_coldbrew(
 	.clk(clk), 
 	.rst_n(rst_n), 
 
