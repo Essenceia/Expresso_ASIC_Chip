@@ -40,6 +40,7 @@ jobs:
           else
             echo "matrix={\"slot\":['default'],\"domain\":['default'],\"sram\":['default'],\"pad\":['default'],\"scl\":['default']}" >> $GITHUB_OUTPUT
           fi
+		  git submodule update --init --recursive
     outputs:
       matrix: ${{ steps.export-matrix.outputs.matrix }}
   chip:
