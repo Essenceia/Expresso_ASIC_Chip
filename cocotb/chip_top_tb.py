@@ -27,6 +27,9 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "../src/coffeepot/test"))
 import switch_tests
 
+sys.path.append(os.path.join(os.path.dirname(__file__), "../src/coldbrew/test"))
+import coldbrew_tests
+
 async def set_defaults(dut):
     dut.input_PAD.value = 0
 
@@ -168,23 +171,33 @@ def chip_top_runner():
     else:
         sources.append(proj_path / "../src/chip_top.sv")
         sources.append(proj_path / "../src/chip_core.sv")
-        
+
+        # coffeepot        
         coffeepot_path = proj_path / "../src/coffeepot/src"
         sources.append(coffeepot_path / "coffeepot.v")
         sources.append(coffeepot_path / "aiguilleur.v")
         sources.append(coffeepot_path / "dispatcher.v")
         sources.append(coffeepot_path / "mac_addr_table.v")
-        sources.append(coffeepot_path / "mac_rx.v")
-        sources.append(coffeepot_path / "mac_tx.v")
+        sources.append(coffeepot_path / "switch_mac_rx.v")
+        sources.append(coffeepot_path / "switch_mac_tx.v")
         sources.append(coffeepot_path / "rmii.v")
         sources.append(coffeepot_path / "switch.v")
-        sources.append(coffeepot_path / "tx_tt_buffer.v")
         sources.append(coffeepot_path / "utils.v")
         sources.append(coffeepot_path / "arbitor.v")
         sources.append(coffeepot_path / "lookup.v")
         sources.append(coffeepot_path / "ttnn_timer.v")
         sources.append(coffeepot_path / "replacement_policy.v")
-        
+
+        #coldbrew
+        coldbrew_path = proj_path / "../src/coldbrew/src"
+        sources.append(coldbrew_path / "broadcast_timer.v")
+        sources.append(coldbrew_path / "coldbrew.v")
+        sources.append(coldbrew_path / "crc_8.v")
+        sources.append(coldbrew_path / "death_of_the_universe_counter.v")
+        sources.append(coldbrew_path / "mac_conf.v")
+        sources.append(coldbrew_path / "mac_rx.v")
+        sources.append(coldbrew_path / "mac_tx.v")
+  
         #cocotb sim specific defs to reduce counter size
         defines["COCOTB"] = True
 
