@@ -45,21 +45,21 @@ PAD_EAST: [
 ]
 
 PAD_NORTH: [
-    "inputs\\[12\\].pad",
-    "inputs\\[13\\].pad",
+    "bidir\\[15\\].pad",
+    "bidir\\[16\\].pad",
 
     "dvss_pads\\[2\\].pad",
     "dvdd_pads\\[2\\].pad",
 
-    "inputs\\[14\\].pad",
-    "inputs\\[15\\].pad",
 
-    "bidir\\[9\\].pad",
-    "bidir\\[10\\].pad",
     "bidir\\[11\\].pad",
+    "bidir\\[10\\].pad",
+    "bidir\\[9\\].pad",
 
-    "bidir\\[15\\].pad",
-    "bidir\\[16\\].pad"
+    "inputs\\[15\\].pad",
+    "inputs\\[14\\].pad",
+    "inputs\\[13\\].pad",
+    "inputs\\[12\\].pad"
 ]
 
 PAD_WEST: [
