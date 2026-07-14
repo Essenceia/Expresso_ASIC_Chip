@@ -135,7 +135,7 @@ RUN_POST_GRT_RESIZER_TIMING: True
 PNR_EXCLUDED_CELL_FILE: dir::pnr_exclude.cells
 
 # openroad is crashing the system on deisgn repair post gpl, memory leak 
-RUN_POST_GPL_DESIGN_REPAIR: False
+RUN_POST_GPL_DESIGN_REPAIR: True
 RUN_POST_GRT_DESIGN_REPAIR: True
 #DESIGN_REPAIR_REMOVE_BUFFERS: True
 #DESIGN_REPAIR_MAX_SLEW_PCT: 10
