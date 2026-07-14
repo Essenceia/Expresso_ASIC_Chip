@@ -121,7 +121,7 @@ generate
 	end
 endgenerate 
 
-// tie unused pins, TODO cleanup
+// tie unused pins
 localparam OUT_PADS_CNT = PORT_CNT*RMII_OUT_W;
 localparam UNUSED_BIDIR_PADS_CNT = NUM_BIDIR_PADS - OUT_PADS_CNT; 
 

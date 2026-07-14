@@ -24,8 +24,8 @@ WAVES = os.getenv("WAVES", "1").lower() in ("true", "yes", "1")
 hdl_toplevel = "chip_top"
 tb_toplevel = "chip_top_tb"
 
-coldbrew_phy = "3"
-PHY_NUM = 4
+coldbrew_phy = "4"
+PHY_NUM = 5
 CLK_UNIT="ns"
 CLK_PERIOD=20
 

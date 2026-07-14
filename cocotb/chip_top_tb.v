@@ -48,6 +48,10 @@ wire       phy_rx2_err;
 wire [1:0] phy_rx3;
 wire       phy_rx3_v;
 wire       phy_rx3_err;	
+// RX4
+wire [1:0] phy_rx4;
+wire       phy_rx4_v;
+wire       phy_rx4_err;	
 
 // TX0 
 wire [1:0] phy_tx0;
@@ -61,10 +65,14 @@ wire       phy_tx2_v;
 // TX3
 wire [1:0] phy_tx3;
 wire       phy_tx3_v;
+// TX4
+wire [1:0] phy_tx4;
+wire       phy_tx4_v;
+
 
 // expresso chip top
-// PHY[2-0] coffeepot 
-// PHY[3]   coldbrew
+// PHY[3-0] coffeepot 
+// PHY[4]   coldbrew
 assign input_PAD[1:0]   = phy_rx0;
 assign input_PAD[2]     = phy_rx0_v;
 assign input_PAD[3]     = phy_rx0_err;
@@ -81,6 +89,10 @@ assign input_PAD[13:12] = phy_rx3;
 assign input_PAD[14]    = phy_rx3_v;
 assign input_PAD[15]    = phy_rx3_err;
 
+assign input_PAD[17:16] = phy_rx4;
+assign input_PAD[18]    = phy_rx4_v;
+assign input_PAD[19]    = phy_rx4_err;
+
 assign phy_tx0     = bidir_PAD[1:0];
 assign phy_tx0_v   = bidir_PAD[2];
 
@@ -92,6 +104,9 @@ assign phy_tx2_v   = bidir_PAD[8];
 
 assign phy_tx3     = bidir_PAD[10:9];
 assign phy_tx3_v   = bidir_PAD[11];
+
+assign phy_tx4     = bidir_PAD[13:12];
+assign phy_tx4_v   = bidir_PAD[14];
 
 chip_top chip_top (
     `ifdef USE_POWER_PINS
