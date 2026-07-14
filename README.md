@@ -5,7 +5,7 @@ Open source Ethernet focused ASIC featuring a
 This chip is designed for the second run of [wafer.space](https://wafer.space/), 
 targetting the Global Foundaries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
 
-![floorplan](precheck/chip_top.png) 
+![floorplan](docs/chip_pretty.png) 
 
 Features: 
 - Ethernet switch:
