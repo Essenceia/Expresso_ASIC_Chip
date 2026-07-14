@@ -51,8 +51,8 @@ PAD_NORTH: [
     "dvss_pads\\[2\\].pad",
     "dvdd_pads\\[2\\].pad",
 
-    "input\\[14\\].pad",
-    "input\\[15\\].pad",
+    "inputs\\[14\\].pad",
+    "inputs\\[15\\].pad",
 
     "bidir\\[9\\].pad",
     "bidir\\[10\\].pad",
