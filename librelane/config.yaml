@@ -134,6 +134,9 @@ GRT_RESIZER_HOLD_SLACK_MARGIN: 0.3
 RUN_POST_GRT_RESIZER_TIMING: True
 PNR_EXCLUDED_CELL_FILE: dir::pnr_exclude.cells
 
+# openroad is crashing the system
+RUN_POST_GPL_DESIGN_REPAIR: False
+
 # Increase density for more 
 # logic on your die
 PL_TARGET_DENSITY_PCT: 35
