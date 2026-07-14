@@ -3,14 +3,14 @@ name: CI
 # Events that trigger the workflow
 on:
   # Runs on all pushes to branches
-  #push:
-  #  branches:
-  #    - "**"
-  #  tags-ignore:
-  #    - "**"
-  # don't runs on all PRs but only on manual dispatch
-  # pull_request:
-  # Manual Dispatch
+  push:
+    branches:
+      - "**"
+    tags-ignore:
+      - "**"
+   don't runs on all PRs but only on manual dispatch
+   pull_request:
+   Manual Dispatch
   workflow_dispatch:
 
 concurrency:
