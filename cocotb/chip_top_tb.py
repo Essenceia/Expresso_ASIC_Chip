@@ -192,12 +192,12 @@ def chip_top_runner():
 
 
     sources.append(proj_path / "chip_top_tb.v")
-    if GATES:
-        # SCL models
-        sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / f"{scl}.v")
-        if scl != "gf180mcu_as_sc_mcu7t3v3":
-            sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / "primitives.v")
+    # SCL models
+    sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / f"{scl}.v")
+    if scl != "gf180mcu_as_sc_mcu7t3v3":
+        sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / "primitives.v")
 
+    if GATES:
         # We use the powered netlist
         sources.append(proj_path / f"../final/pnl/{hdl_toplevel}.pnl.v")
 
@@ -210,7 +210,6 @@ def chip_top_runner():
         coffeepot_path = proj_path / "../src/coffeepot/src"
         sources.append(coffeepot_path / "coffeepot.v")
         sources.append(coffeepot_path / "aiguilleur.v")
-        sources.append(coffeepot_path / "dispatcher.v")
         sources.append(coffeepot_path / "mac_addr_table.v")
         sources.append(coffeepot_path / "switch_mac_rx.v")
         sources.append(coffeepot_path / "switch_mac_tx.v")

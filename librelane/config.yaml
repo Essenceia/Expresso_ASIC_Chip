@@ -34,7 +34,6 @@ VERILOG_FILES:
 - dir::../src/chip_core.sv
 - dir::../src/coffeepot/src/coffeepot.v
 - dir::../src/coffeepot/src/aiguilleur.v
-- dir::../src/coffeepot/src/dispatcher.v
 - dir::../src/coffeepot/src/mac_addr_table.v
 - dir::../src/coffeepot/src/switch_mac_rx.v
 - dir::../src/coffeepot/src/switch_mac_tx.v
