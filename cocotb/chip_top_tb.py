@@ -72,7 +72,7 @@ async def start_up(dut):
         dut[f"phy_rx{idx}_v"].value = "0"
         dut[f"phy_rx{idx}"].value = "X"*2
         dut[f"phy_rx{idx}_err"].value = "X"
-    await ClockCycles(dut.clk, 30)
+    await ClockCycles(dut.clk, 200)
     dut.rst_n.value = 1
     await ClockCycles(dut.clk, 20)
     set_random_seed()
