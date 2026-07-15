@@ -31,9 +31,22 @@ This IP has been re-addapted to make the best use of a full chip tapeout, checko
 
 Since the LAN8720A PHY chip directly supports IO volatages between +1.62V and +3.6V, in order to be easily compatible, our ASIC targets an 
 operating volate of 3.3V, which would result in an IO operating also at 3v3. 
-In case of issues, bump the operating voltage to 3.6V.  
 
-![pins](/docs/pin_maping.svg) 
+The RMII PHY0-3 interfaces are connected to the switch (`coffeepot`), while PHY4 is connected to the beacon (`coldbrew`). 
+Both IP share the same power domains, `clk` and `rst_n` signals. 
+
+By default all input pins are pulled down, so in cases where the board doesn't feature a PHY chip connected to a ASIC RMII PHY interface
+no additional changes are needed. All output pins are also pull down. 
+
+![pins](/docs/pin_mapping.svg) 
+
+### External PHY chip 
+
+The pin mapping on this `0p5x0p5` slot was specifically designed for unbostructed routing on the pcb between this ASIC and the LAN8720A chip. 
+
+![lan](/docs/lan8720a_pinout.png) 
+
+(P.S: Although it might sound at first like narrow targetting of a single part this mapping would also be compatible with the parts like the `KSZ8081RNA/RND`.)
 
 ## Credits
 
