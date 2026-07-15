@@ -33,7 +33,7 @@ Since the LAN8720A PHY chip directly supports IO volatages between +1.62V and +3
 operating volate of 3.3V, which would result in an IO operating also at 3v3. 
 In case of issues, bump the operating voltage to 3.6V.  
 
-TODO 
+![pins](/docs/pin_maping.svg) 
 
 ## Credits
 
