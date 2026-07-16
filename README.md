@@ -1,9 +1,11 @@
 # Expresso ASIC 
 
-Open source Ethernet focused ASIC featuring a 
+Fully open source Ethernet focused ASIC chip featuring a 
 100Mbps capable cut-through, unmanaged, Ethernet switch. 
-This chip is designed for the second run of [wafer.space](https://wafer.space/), 
+This full chip is designed for the second run of [wafer.space](https://wafer.space/), 
 targetting the Global Foundaries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
+
+This is the defaulf and prefered 1.94mm × 2.53mm floorplan configuration, targetting a package with 56 pads as well as the smallest `0p5x0p5` wafer.space slot.
 
 ![floorplan](docs/chip_pretty.png) 
 
@@ -25,15 +27,28 @@ This full chip ties together in a single package multiple projects that are all 
 - [`teapot` Ethernet wrapper for building network connected accelerators.](https://github.com/Essenceia/Teapot)
 - [`coldbrew` Ethernet connected beacon for broadcasting an ethernet frame with an uptime count until the heat death of the universe.](https://github.com/Essenceia/Until_Heat_Death_Do_Us_Part) - included
 
-This IP has been re-addapted to make the best use of a full chip tapeout, checkout the `ws_run2` branch or the submodules to see the version of the IP being used.  
+These IP's have been scalled up to make the best use of a full chip tapeout, checkout the `src/` folder where the submodules live to see the version of the IP is being used.  
 
 ## Pinouts 
 
 Since the LAN8720A PHY chip directly supports IO volatages between +1.62V and +3.6V, in order to be easily compatible, our ASIC targets an 
 operating volate of 3.3V, which would result in an IO operating also at 3v3. 
-In case of issues, bump the operating voltage to 3.6V.  
 
-TODO 
+The RMII PHY0-3 interfaces are connected to the switch (`coffeepot`), while PHY4 is connected to the beacon (`coldbrew`). 
+Both IP share the same power domains, `clk` and `rst_n` signals. 
+
+By default all input pins are pulled down, so in cases where the board doesn't feature a PHY chip connected to a ASIC RMII PHY interface
+no additional changes are needed. All output pins are also pull down. 
+
+![pins](/docs/pin_mapping.svg) 
+
+### External PHY chip 
+
+The pin mapping on this `0p5x0p5` slot was specifically designed for unbostructed routing on the pcb between this ASIC and the LAN8720A chip. 
+
+![lan](/docs/lan8720a_pinout.png) 
+
+(P.S: Although it might sound at first like narrow targetting of a single part this mapping would also be compatible with the parts like the `KSZ8081RNA/RND`.)
 
 ## Credits
 
