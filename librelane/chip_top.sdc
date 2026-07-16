@@ -83,24 +83,9 @@ if { [info exists ::env(OPENLANE_SDC_IDEAL_CLOCKS)] && $::env(OPENLANE_SDC_IDEAL
 # LAN8720 pin specific pin timings: superset of RMII specification compatible 
 set ::env(INPUT_PHY_CLK) $clock_port 
 
-# Switch : PHY0, PHY1, PHY2 
-set ::env(PHY_RX_PINS) [get_ports {input_PAD[11-8]}]
-set ::env(PHY_TX0_PINS) [get_ports {bidir_PAD[2-0]}]
-set ::env(PHY_TX1_PINS) [get_ports {bidir_PAD[5-3]}]
-set ::env(PHY_TX2_PINS) [get_ports {bidir_PAD[8-6]}]
-set ::env(OUTPUT_CLOCK_TX0) $clock_port 
-set ::env(OUTPUT_CLOCK_TX1) $clock_port 
-set ::env(OUTPUT_CLOCK_TX2) $clock_port 
-
-read_sdc $::env(DESIGN_DIR)/../src/coffeepot/src/lan8720a.sdc
-
-# Beacon : PHY3
-set ::env(PHY_RX_PINS) [get_ports {input_PAD[15-12]}]
-set ::env(PHY_TX_PINS) [get_ports {bidir_PAD[11-9]}]
+# Shared pin timing, all input pins and used output pins are used for the PHY 
+set ::env(PHY_RX_PINS) [get_ports {input_PAD[*]}]
+set ::env(PHY_TX_PINS) [get_ports {bidir_PAD[*]}]
 set ::env(OUTPUT_CLOCK_TX) $clock_port 
 
 read_sdc $::env(DESIGN_DIR)/../src/coldbrew/src/lan8720a.sdc
-
-
-
-
