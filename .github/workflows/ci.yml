@@ -71,6 +71,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           nix_cache_domain: ${{ vars.NIX_CACHE }}
           nix_public_key: ${{ vars.NIX_PUBLIC_KEY }}
+          submodules: true
       - name: Build with Nix
         uses: ./.github/actions/build_nix
         with:
@@ -79,12 +80,6 @@ jobs:
         run: |
           sudo du -hs /nix/store/* | sort -h | tail -n 10
           sudo tree /nix/store/*-librelane || true
-      - name: Configure submodules to HTTP
-        run: |
-          git config --global url."https://github.com/".insteadOf "git@github.com:"
-      - name: Pull Submodules 
-        run: |
-          git submodule update --init --recursive
       - name: Clone the PDK
         run: |
           nix develop --command make clone-pdk
