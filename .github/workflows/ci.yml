@@ -8,7 +8,7 @@ on:
       - "**"
     tags-ignore:
       - "**"
-  # don't runs on all PRs but only on manual dispatch
+  # Runs on all PRs
   pull_request:
   # Manual Dispatch
   workflow_dispatch:
@@ -64,14 +64,15 @@ jobs:
           remove-haskell: "true"
           remove-codeql: "true"
           remove-docker-images: "true"
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v6
+        with:
+           submodules: recursive
       - name: Setup Nix
         uses: ./.github/actions/setup_nix
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           nix_cache_domain: ${{ vars.NIX_CACHE }}
           nix_public_key: ${{ vars.NIX_PUBLIC_KEY }}
-          submodules: recursive
       - name: Build with Nix
         uses: ./.github/actions/build_nix
         with:
