@@ -64,7 +64,7 @@ jobs:
           remove-haskell: "true"
           remove-codeql: "true"
           remove-docker-images: "true"
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Nix
         uses: ./.github/actions/setup_nix
         with:
