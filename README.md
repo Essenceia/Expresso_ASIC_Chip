@@ -2,10 +2,13 @@
 
 Fully open source Ethernet focused ASIC chip featuring a 
 100Mbps capable cut-through, unmanaged, Ethernet switch. 
-This full chip is designed for the second run of [wafer.space](https://wafer.space/), 
-targeting the Global Foundries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
+This fully open source chip was sponsored by [wafer.space](https://wafer.space/) 
+and is part of there second multi-project wafer run. I am deeply grateful for there 
+support and this chip might not have existed without them. 
 
-This is the defaulf and prefered 1.94mm × 2.53mm floorplan configuration, targeting a package with 56 pads as well as the smallest `0p5x0p5` wafer.space slot.
+This full chip is targeting the Global Foundries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
+
+This is the default and preferred 1.94mm × 2.53mm floorplan configuration, targeting a package with 56 pads as well as the smallest `0p5x0p5` wafer.space slot.
 
 ![floorplan](docs/chip_pretty.png) 
 
