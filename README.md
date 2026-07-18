@@ -58,7 +58,7 @@ Although it might sound at first like narrow targeting of a single part this map
 This is chip is part of a larger ongoing project to develop fully open source ethernet focused ASICs. 
 Future improvements will be focused on working towards a more powerfull and larger version of the switch. 
 
-Changes: 
+Mid-term changes: 
 - design accompanying PCB
 - Expand to 76 pad version 
 - Expand to more ethernet ports 6-8
@@ -66,6 +66,10 @@ Changes:
 - Add perf counters and expose said counters over JTAG
 - Expand the number of routing entries
 - Add cute GDS art to corners 
+
+Longer-term changes: 
+- Integrate analog ethernet PHY into the chip
+- Target higher Ethernet bandwidths 
 
 ## AI Policy 
 
