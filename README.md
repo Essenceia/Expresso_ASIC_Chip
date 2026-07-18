@@ -3,9 +3,9 @@
 Fully open source Ethernet focused ASIC chip featuring a 
 100Mbps capable cut-through, unmanaged, Ethernet switch. 
 This full chip is designed for the second run of [wafer.space](https://wafer.space/), 
-targetting the Global Foundaries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
+targeting the Global Foundries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
 
-This is the defaulf and prefered 1.94mm × 2.53mm floorplan configuration, targetting a package with 56 pads as well as the smallest `0p5x0p5` wafer.space slot.
+This is the defaulf and prefered 1.94mm × 2.53mm floorplan configuration, targeting a package with 56 pads as well as the smallest `0p5x0p5` wafer.space slot.
 
 ![floorplan](docs/chip_pretty.png) 
 
@@ -44,11 +44,17 @@ no additional changes are needed. All output pins are also pull down.
 
 ### External PHY chip 
 
-The pin mapping on this `0p5x0p5` slot was specifically designed for unbostructed routing on the pcb between this ASIC and the LAN8720A chip. 
+The pin mapping on this `0p5x0p5` slot was specifically designed for unobstructed routing on the pcb between this ASIC and the LAN8720A chip. 
 
 ![lan](/docs/lan8720a_pinout.png) 
 
-(P.S: Although it might sound at first like narrow targetting of a single part this mapping would also be compatible with the parts like the `KSZ8081RNA/RND`.)
+Although it might sound at first like narrow targeting of a single part this mapping would also be compatible with the other RMII parts like the `KSZ8081RNA/RND`.
+
+## AI Policy 
+
+No AI was used by me in the development of this chip. 
+
+All code and design decisions are, and will remain, entirely human made. 
 
 ## Credits
 
