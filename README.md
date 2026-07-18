@@ -53,6 +53,20 @@ The pin mapping on this `0p5x0p5` slot was specifically designed for unobstructe
 
 Although it might sound at first like narrow targeting of a single part this mapping would also be compatible with the other RMII parts like the `KSZ8081RNA/RND`.
 
+## Future improvements 
+
+This is chip is part of a larger ongoing project to develop fully open source ethernet focused ASICs. 
+Future improvements will be focused on working towards a more powerfull and larger version of the switch. 
+
+Changes: 
+- design accompanying PCB
+- Expand to 76 pad version 
+- Expand to more ethernet ports 6-8
+- 10Mbps support with dynamic switching between 100Mbps and 10Mbps
+- Add perf counters and expose said counters over JTAG
+- Expand the number of routing entries
+- Add cute GDS art to corners 
+
 ## AI Policy 
 
 No AI was used by me in the development of this chip. 
