@@ -1,4 +1,5 @@
 cff-version: 1.2.0
+type: hardware
 authors:
 - family-names: "Desmazes"
   given-names: "Julia Desmazes"
