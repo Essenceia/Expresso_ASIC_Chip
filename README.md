@@ -3,7 +3,7 @@
 Fully open source Ethernet focused ASIC chip featuring a 
 100Mbps capable cut-through, unmanaged, Ethernet switch. 
 This fully open source chip was sponsored by [wafer.space](https://wafer.space/) 
-and is part of there second multi-project wafer run. I am deeply grateful for there 
+and is part of their second multi-project wafer run. I am deeply grateful for their 
 support and this chip might not have existed without them. 
 
 This full chip is targeting the Global Foundries 180 nm process (`gf180mcu`), using the [open source `gf180mcuD` PDK](https://gf180mcu-pdk.readthedocs.io/en/latest/). 
