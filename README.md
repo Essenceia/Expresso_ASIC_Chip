@@ -58,11 +58,16 @@ Although it might sound at first like narrow targeting of a single part this map
 This is chip is part of a larger ongoing project to develop fully open source ethernet focused ASICs. 
 Future improvements will be focused on working towards a more powerfull and larger version of the switch. 
 
+Short-term changes: 
+- Refactor shared Ethernet IP into a seperate library 
+- Add formal validation framework
+
 Mid-term changes: 
-- design accompanying PCB
+- design custom FPGA board for accurate device emulation
+- design experimental developpement board with FPGA and final chip support
+- design final PCB
 - Expand to 76 pad version 
 - Expand to more ethernet ports 6-8
-- 10Mbps support with dynamic switching between 100Mbps and 10Mbps
 - Add perf counters and expose said counters over JTAG
 - Expand the number of routing entries
 - Add cute GDS art to corners 
