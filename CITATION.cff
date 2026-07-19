@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+authors:
+- family-names: "Desmazes"
+  given-names: "Julia Desmazes"
+title: "Expresso Chip - Open source Ethernet Switch ASIC"
+version: 1.0
+date-released: 2026-15-07
+url: "https://github.com/Essenceia/Expresso_ASIC_Chip"
