@@ -25,12 +25,7 @@ Features:
 
 ## Coffee-shop family 
 
-This full chip ties together in a single package multiple projects that are all part of larger family of open-source Ethernet connected IP: 
-- [`coffeepot` first generation switch.](https://github.com/Essenceia/ethernet_switch_asic) - included 
-- [`teapot` Ethernet wrapper for building network connected accelerators.](https://github.com/Essenceia/Teapot)
-- [`coldbrew` Ethernet connected beacon for broadcasting an ethernet frame with an uptime count until the heat death of the universe.](https://github.com/Essenceia/Until_Heat_Death_Do_Us_Part) - included
-
-These IP's have been scalled up to make the best use of a full chip tapeout, checkout the `src/` folder where the submodules live to see the version of the IP is being used.  
+This ASIC is part of a larger project to build fully open-source Ethernet equipement called the [Coffee-shop project](https://github.com/Essenceia/Coffee_Shop_Project).
 
 ## Pinouts 
 
